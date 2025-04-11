@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2017-2019 Cask Data, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * ...
+ */
+
 package io.cdap.wrangler.api.parser;
 
 import com.google.gson.JsonElement;
@@ -9,7 +16,7 @@ public class TimeDuration implements Token{
 
     private final long milliseconds;
 
-    TimeDuration(String input){
+    public TimeDuration(String input){
         this.milliseconds = parse(input);
     }
 
@@ -58,8 +65,6 @@ public class TimeDuration implements Token{
     public JsonElement toJson() {
         return new JsonPrimitive(getMilliseconds());
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 6c3cd689571a1191ee0171c4b3906f72525bf2e9
+

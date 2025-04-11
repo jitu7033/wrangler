@@ -66,7 +66,7 @@ public enum TokenType implements Serializable {
 
   /**
    * Represents the enumerated type for the object of {@code Numeric} type.
-   * This type is associated with the token that is either a integer or real number.
+   * This type is associated with the token that is either  integer or real number.
    */
   NUMERIC,
 
@@ -159,7 +159,7 @@ public enum TokenType implements Serializable {
    * on characters that can be present in a string.
    */
   BYTE_SIZE,
-  
+
   /**
    * Represent the enumerated type for the object of type {@code String} with restrictions
    * on characters that can be present in a string.
