@@ -58,4 +58,8 @@ public class TimeDuration implements Token{
     public JsonElement toJson() {
         return new JsonPrimitive(getMilliseconds());
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6c3cd689571a1191ee0171c4b3906f72525bf2e9
