@@ -16,6 +16,7 @@
 
 package io.cdap.wrangler.api;
 
+import io.cdap.wrangler.api.parser.ByteSize;
 import io.cdap.wrangler.api.parser.Token;
 
 import java.util.ArrayList;
@@ -57,5 +58,17 @@ public final class TokenGroup {
 
   public SourceInfo getSourceInfo() {
     return info;
+  }
+
+  public void addToken(Token byteSize) {
+    tokens.add(byteSize);
+  }
+
+  public List<Token> getTokens() {
+    return tokens;
+  }
+
+  public List<Token> getAll() {
+    return new ArrayList<>(tokens); // Return a copy to avoid external mutation
   }
 }

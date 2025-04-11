@@ -14,6 +14,8 @@
  * the License.
  */
 
+
+
 grammar Directives;
 
 options {
@@ -303,6 +305,9 @@ Space
  : [ \t\r\n\u000C]+ -> skip
  ;
 
+
+
+
 fragment Int
  : '-'? [1-9] Digit* [L]*
  | '0'
@@ -338,3 +343,13 @@ fragment DIGITS
 fragment Digit
  : [0-9]
  ;
+
+
+ byteSizeArg
+   : BYTE_SIZE
+   ;
+
+ timeDurationArg
+   : TIME_DURATION
+   ;
+

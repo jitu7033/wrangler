@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class TestByteSizeAndTimeDuration {
 
-    private Token parseToken(String input) throws Exception {
+    private Token parseToken(String input) {
         CharStream cs = CharStreams.fromString(input);
         DirectivesLexer lexer = new DirectivesLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -38,4 +38,5 @@ public class TestByteSizeAndTimeDuration {
         Assert.assertEquals(500, td.getMilliseconds());
         Assert.assertEquals(TokenType.TIME_DURATION, td.type());
     }
+
 }
