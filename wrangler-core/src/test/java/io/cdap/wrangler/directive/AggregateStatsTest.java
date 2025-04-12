@@ -80,6 +80,38 @@ public class AggregateStatsTest {
     }
 
 
+    public void testAggregateStatsDirectiveUsingRecipe() throws Exception {
+        // Step 1: Input data
+        List<Row> inputRows = Arrays.asList(
+                new Row("data_transfer_size", "1MB").add("response_time", "1s"),
+                new Row("data_transfer_size", "512KB").add("response_time", "500ms"),
+                new Row("data_transfer_size", "256KB").add("response_time", "250ms")
+        );
+
+        // Step 2: Recipe to run (name should match your directive)
+        String[] recipe = new String[] {
+                "aggregate-stats :data_transfer_size :response_time total_size_mb total_time_sec"
+        };
+
+        // Step 3: Execute directive using TestingRig
+        List<Row> results = TestingRig.execute(recipe, inputRows);
+
+        // Step 4: Expected results
+        double expectedTotalSizeInMB = (1.0 + 0.5 + 0.25); // 1MB + 512KB + 256KB
+        double expectedTotalTimeInSec = (1.0 + 0.5 + 0.25); // 1s + 500ms + 250ms
+
+        // Step 5: Assertions
+        Assert.assertEquals(1, results.size());
+
+        Row result = results.get(0);
+
+        // Use tolerance for double comparison
+        Assert.assertEquals(expectedTotalSizeInMB,
+                (double) result.getValue("total_size_mb"), 0.0001);
+
+        Assert.assertEquals(expectedTotalTimeInSec,
+                (double) result.getValue("total_time_sec"), 0.0001);
+    }
 
 
 }
