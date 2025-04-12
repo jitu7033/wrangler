@@ -33,6 +33,8 @@ import io.cdap.wrangler.api.parser.TokenType;
  * @see io.cdap.wrangler.api.parser.UsageDefinition
  */
 public interface Arguments {
+  void initialize(Arguments arguments) throws DirectiveParseException;
+
   /**
    * This method returns the token {@code value} based on the {@code name}
    * specified in the argument. This method will attempt to convert the token
@@ -116,4 +118,6 @@ public interface Arguments {
    * named tokens held within this object.
    */
   JsonElement toJson();
+
+    boolean has(String outputSizeUnit);
 }

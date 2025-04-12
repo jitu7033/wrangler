@@ -20,6 +20,7 @@ import io.cdap.wrangler.api.parser.UsageDefinition;
 
 import java.util.List;
 
+
 /**
  * Directive is a user defined directive. DIE - Define, Initialize & Execute - Pattern
  *
@@ -126,4 +127,6 @@ public interface Directive extends Executor<List<Row>, List<Row>>, EntityMetrics
     // no op
     return null;
   }
+
+    List<Row> finalize(ExecutorContext context);
 }
