@@ -25,10 +25,25 @@ public class ByteSize implements Token {
 
     private final long bytes;
 
+    /**
+     * Constructor that parses a size string (e.g., "10KB", "2MB", "1GB")
+     * and stores the equivalent size in bytes.
+     *
+     * @param input String representing the data size with or without units.
+     */
     public ByteSize(String input){
         this.bytes = parse(input);
     }
 
+    /**
+     * Parses a string representing a data size (e.g., "10KB", "2.5MB", "1GB") into bytes.
+     * Supports units: B, KB, MB, GB (case-insensitive).
+     * If no unit is specified, the input is assumed to be in bytes.
+     *
+     * @param input The size string to parse.
+     * @return The equivalent size in bytes as a long value.
+     * @throws NumberFormatException if the input is not a valid number.
+     */
 
     private long parse(String input){
         input = input.trim().toUpperCase(Locale.ENGLISH);
@@ -50,44 +65,70 @@ public class ByteSize implements Token {
         }
     }
 
+    /**
+     * @return Parsed size in bytes.
+     */
     public long getBytes() {
         return bytes;
     }
 
+    /**
+     * @return Size in kilobytes (KB).
+     */
     public double getKilobytes() {
         return bytes / 1024.0;
     }
 
+    /**
+     * @return Size in megabytes (MB).
+     */
     public double getMegabytes() {
         return bytes / (1024.0 * 1024);
     }
-
+    /**
+     * @return Size in gigabytes (GB).
+     */
     public double getGigabytes() {
         return bytes / (1024.0 * 1024 * 1024);
     }
 
 
-
+    /**
+     * @return The raw value (in bytes) of this token.
+     */
     @Override
     public Object value() {
         return getBytes();
     }
 
+    /**
+     * @return Token type enum for BYTE_SIZE.
+     */
+    @Ove
     @Override
     public TokenType type() {
         return TokenType.BYTE_SIZE;
     }
 
+    /**
+     * @return A JSON representation of the byte size.
+     */
     @Override
     public JsonElement toJson() {
         return new JsonPrimitive(getBytes());
     }
 
+    /**
+     * Unused for this token type. Always returns 0.
+     */
     @Override
     public long getNanoseconds() {
         return 0;
     }
 
+    /**
+     * @return String representation of byte size (e.g., "1024bytes").
+     */
     @Override
     public String toString(){
         return bytes + "bytes";

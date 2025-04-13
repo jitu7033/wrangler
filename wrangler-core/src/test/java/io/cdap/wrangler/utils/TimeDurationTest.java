@@ -15,6 +15,11 @@
  *  the License.
  */
 public class TimeDurationTest {
+
+    /**
+     * Tests parsing of valid time duration strings with various units.
+     * Validates conversion of milliseconds, seconds (including decimals), and minutes into milliseconds.
+     */
     @Test
     public void testTimeDurationParsing() {
         Assert.assertEquals(5, TimeDuration.parse("5ms").getValue());
@@ -23,11 +28,18 @@ public class TimeDurationTest {
         Assert.assertEquals(60000, TimeDuration.parse("1m").getValue());
     }
 
+    /**
+     * Tests parsing of uppercase input to verify case-insensitive parsing.
+     */
     @Test
     public void testTimeDurationParsingUpperCase() {
         Assert.assertEquals(3000, TimeDuration.parse("3S").getValue());
     }
 
+    /**
+     * Tests that invalid time duration strings throw an IllegalArgumentException.
+     * The string "abc" does not match any valid format.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidTimeDuration() {
         TimeDuration.parse("abc");

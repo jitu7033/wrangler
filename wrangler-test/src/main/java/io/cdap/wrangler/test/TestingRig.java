@@ -43,6 +43,7 @@ public final class TestingRig {
 
   private TestingRig() {
     // Avoid creation of this object.
+
   }
 
   public static RecipePipeline pipeline(Class<? extends Directive> directive, TestRecipe recipe)

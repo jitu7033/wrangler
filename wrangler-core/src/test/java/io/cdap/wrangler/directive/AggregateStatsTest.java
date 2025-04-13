@@ -105,6 +105,7 @@ public class AggregateStatsTest {
 
         Row result = results.get(0);
 
+
         // Use tolerance for double comparison
         Assert.assertEquals(expectedTotalSizeInMB,
                 (double) result.getValue("total_size_mb"), 0.0001);

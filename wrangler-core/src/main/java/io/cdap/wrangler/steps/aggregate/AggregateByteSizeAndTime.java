@@ -15,6 +15,7 @@
  */
 
 
+
 package io.cdap.wrangler.steps.aggregate;
 
 import io.cdap.wrangler.api.*;
@@ -27,20 +28,32 @@ import io.cdap.wrangler.api.parser.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Directive and Aggregator implementation that aggregates byte sizes and time durations.
+ * Supports both total and average aggregation.
+ */
 public class AggregateByteSizeAndTime implements Directive, Aggregator {
 
+    // Input and output column names
     private String byteColumn;
     private String timeColumn;
     private String outputByteColumn;
     private String outputTimeColumn;
+
+    // Optional configuration units and aggregation type
     private String byteUnit = "B";
     private String  timeUnit = "ms";
     private String aggregationType = "total";
 
+    // Aggregated data
     private long totalBytes = 0;
     private long totalTimeNanos = 0;
     private int rowCount = 0;
 
+    /**
+     * Defines the directive usage: parameters and their types.
+     */
     @Override
     public UsageDefinition define() {
         UsageDefinition.Builder builder = UsageDefinition.builder("aggregate-bytes-time");
@@ -54,6 +67,10 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
         return builder.build();
     }
 
+
+    /**
+     * Initializes the directive with values provided in the recipe.
+     */
     @Override
     public void initialize(Arguments arguments) throws DirectiveParseException {
         byteColumn = arguments.value("byteColumn");
@@ -73,16 +90,22 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
             aggregationType = arguments.value("aggregationType").toString();
         }
     }
-//
-//    @Override
-//    public List<Row> execute(List<Row> rows, ExecutorContext context) throws DirectiveExecutionException, ErrorRowException, ReportErrorAndProceed {
-//        return List.of();
-//    }
 
+
+
+    /**
+     * Not used. Required override for directive lifecycle.
+     */
     @Override
     public void destroy() {
 
     }
+
+
+
+    /**
+     * Not used in this directive context. Required for interface compliance.
+     */
 
     @Override
     public List<Row> execute(List<Row> rows, ExecutorContext context) {
@@ -97,6 +120,11 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
         return rows; // Actual aggregation result is in finalize()
     }
 
+
+    /**
+     * Finalizes the aggregation and returns a single summary row with the results.
+     * Converts bytes and time to user-specified units.
+     */
     @Override
     public List<Row> finalize(ExecutorContext context)  {
         List<Row> result = new ArrayList<>();
@@ -116,6 +144,9 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
         return result;
     }
 
+    /**
+     * Converts byte values to KB, MB, GB, or retains original bytes based on unit.
+     */
     private double convertBytes(long bytes, String unit) {
         switch (unit.toUpperCase()) {
             case "KB": return bytes / 1024.0;
@@ -125,6 +156,10 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
         }
     }
 
+
+    /**
+     * Converts nanoseconds to milliseconds, seconds, or minutes based on unit.
+     */
     private double convertTime(long nanos, String unit) {
         switch (unit.toLowerCase()) {
             case "ms": return nanos / 1_000_000.0;
@@ -134,6 +169,10 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
             default: return nanos;
         }
     }
+
+    /**
+     * Unused aggregator method. Present for compatibility.
+     */
 
     @Override
     public List<Row> aggregate(List<Row> rows, ExecutorContext context) throws DirectiveExecutionException {

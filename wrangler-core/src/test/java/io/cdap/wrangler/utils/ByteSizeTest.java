@@ -16,6 +16,9 @@
 
 public class ByteSizeTest {
 
+    /**
+     * Tests parsing of standard byte size units (KB, MB, GB) with expected values.
+     */
     @Test
     public void testByteSizeParsing() {
         Assert.assertEquals(1024, ByteSize.parse("1KB").getValue());
@@ -24,11 +27,17 @@ public class ByteSizeTest {
         Assert.assertEquals(1073741824, ByteSize.parse("1GB").getValue());
     }
 
+    /**
+     * Tests parsing of lowercase input to ensure case-insensitive parsing works correctly.
+     */
     @Test
     public void testByteSizeParsingLowerCase() {
         Assert.assertEquals(2048, ByteSize.parse("2kb").getValue());
     }
 
+    /**
+     * Tests handling of invalid input. The string "10ZZ" is not a valid unit and should throw an exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidByteSize() {
         ByteSize.parse("10ZZ");
