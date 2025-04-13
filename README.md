@@ -20,6 +20,54 @@ are manually created.
 
 ## New Features
 
+
+# Wrangler Enhancements – ByteSize & TimeDuration Parsers, Aggregation Directive
+
+## 📌 Overview
+
+This project is an extension of the [CDAP Wrangler](https://github.com/data-integrations/wrangler) tool, focusing on enhancing its parsing and aggregation capabilities. The key contributions include:
+
+- ✅ Implementation of `ByteSize` and `TimeDuration` token parsers
+- ✅ A custom directive `AggregateByteSizeAndTime` to compute total/average values
+- ✅ Integration with ANTLR grammar for new token types
+- ✅ Comprehensive unit tests for new parsers and directive behavior
+
+---
+
+## ✨ Features
+
+### 1. **Custom Parsers**
+- `ByteSize`: Parses size strings like `10KB`, `1.5MB`, `2GB`, etc.
+- `TimeDuration`: Parses duration strings like `5ms`, `1.5s`, `1m`, etc.
+
+### 2. **New Directive: `AggregateByteSizeAndTime`**
+- Aggregates byte and time values across rows
+- Supports:
+    - Total / Average aggregation
+    - Output in custom units (`B`, `KB`, `MB`, `GB`, `ms`, `s`, `min`)
+
+---
+
+## 🧪 Testing
+
+### Unit Tests:
+- ✅ `ByteSizeTest`: Verifies parsing of various size formats
+- ✅ `TimeDurationTest`: Validates correct time conversions
+- ✅ Directive tests:
+    - Aggregation accuracy
+    - Invalid inputs
+    - Recipe-based tests
+
+### Sample Output:
+```bash
+[INFO]  Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+[INFO]  BUILD SUCCESS
+```
+
+
+
+
+
 More [here](wrangler-docs/upcoming-features.md) on upcoming features.
 
   * **User Defined Directives, also known as UDD**, allow you to create custom functions to transform records within CDAP DataPrep or a.k.a Wrangler. CDAP comes with a comprehensive library of functions. There are however some omissions, and some specific cases for which UDDs are the solution. Additional information on how you can build your custom directives [here](wrangler-docs/custom-directive.md).

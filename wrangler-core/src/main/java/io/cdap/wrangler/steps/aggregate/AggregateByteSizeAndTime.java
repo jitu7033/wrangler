@@ -67,7 +67,6 @@ public class AggregateByteSizeAndTime implements Directive, Aggregator {
         return builder.build();
     }
 
-
     /**
      * Initializes the directive with values provided in the recipe.
      */
